@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-export default function CartElementsButton({ onChange }) {
+export default function CartElementsButton({ onChange }: { onChange: (value: number) => void }) {
   const [quantity, setQuantity] = useState(0);
 
   const increment = () => {
