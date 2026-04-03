@@ -6,12 +6,12 @@ import CartContent from "./CartContent";
 import { useCart } from "../CartContext"; // Importa il telecomando
 
 export default function Navbar() {
-  const { cartItem } = useCart();
+  const cart = useCart();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   useEffect(() => {
-    const closeCart = (e) => {
+    const closeCart = (e: Event) => {
       // Chiude il carrello solo se clicchi fuori dalla card
       if (isCartOpen) setIsCartOpen(false);
     };
@@ -22,6 +22,9 @@ export default function Navbar() {
 
     return () => window.removeEventListener("click", closeCart);
   }, [isCartOpen]);
+
+  if (!cart) return null;
+  const { cartItem, addToCart, removeFromCart } = cart;
 
   const navLinks = [
     { name: "Collections", href: "/collections" },

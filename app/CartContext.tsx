@@ -1,19 +1,32 @@
 "use client";
 import { createContext, useContext, useState } from "react";
 
-const CartContext = createContext<any>(null);
+type CartItem = {
+  name: string;
+  price: number;
+  totalPrice: number;
+  qty: number;
+};
+
+type CartContextType = {
+  cartItem: CartItem | null;
+  addToCart: (item: CartItem) => void;
+  removeFromCart: () => void;
+};
+
+const CartContext = createContext<CartContextType>(
+  {} as CartContextType
+);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [cartItem, setCartItem] = useState<any>(null);
+  const [cartItem, setCartItem] = useState<CartItem | null>(null);
 
-  // Funzione per aggiungere
-  const addToCart = (item: any) => {
+  const addToCart = (item: CartItem) => {
     setCartItem(item);
   };
 
-  // FUNZIONE PER CANCELLARE (Deve rimettere a null)
   const removeFromCart = () => {
-    setCartItem(null); 
+    setCartItem(null);
   };
 
   return (
